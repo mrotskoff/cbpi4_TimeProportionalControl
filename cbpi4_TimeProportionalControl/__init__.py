@@ -73,15 +73,3 @@ def calculate_on_off_time(current_temp, target_temp, proportional_band, sample_p
 
 def setup(cbpi):
     cbpi.plugin.register("TimeProportionalControl", TimeProportionalControl)
-
-# quick test
-'''
-target = 100
-period = 60
-band = 20
-for i in range(50, 120):
-    (on_time, off_time) = calculate_on_off_time(i, target, band, period)
-    print("current temp: {}".format(i))
-    print("on_time {}".format(on_time))
-    print("off_time {}".format(off_time))
-'''
