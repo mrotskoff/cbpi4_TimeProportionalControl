@@ -1,0 +1,2 @@
+include cbpi4_TimeProportionalControl/config.yaml
+recursive-include cbpi4_TimeProportionalControl/static *
