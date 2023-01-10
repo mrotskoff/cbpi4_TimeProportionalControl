@@ -1,1 +1,1 @@
-# craftbeerpi4-plugin-template
+A Time Proportional Kettle Temperature Control for CraftBeerPi4
