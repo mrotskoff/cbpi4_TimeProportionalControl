@@ -25,34 +25,34 @@ class TimeProportionalControl(CBPiKettleLogic):
             self.heater_actor = self.cbpi.actor.find_by_id(self.heater)
                        
             while self.running == True:
-                self._logger.debug('---entering TimeProportionalControl run loop---')
+                logging.debug('---entering TimeProportionalControl run loop---')
 
                 current_temp = self.get_sensor_value(self.kettle.sensor).get("value")
                 target_temp = self.get_kettle_target_temp(self.id)
 
-                self._logger.debug('current temp: {0}'.format(current_temp))
-                self._logger.debug('target_temp: {0}'.format(target_temp))
+                logging.debug('current temp: {0}'.format(current_temp))
+                logging.debug('target_temp: {0}'.format(target_temp))
             
                 (on_time, off_time) = calculate_on_off_time(current_temp, target_temp, proportional_band, sample_period)        
-                self._logger.debug('on_time: {0}'.format(on_time))
-                self._logger.debug('off_time: {0}'.format(off_time))
+                logging.debug('on_time: {0}'.format(on_time))
+                logging.debug('off_time: {0}'.format(off_time))
             
                 if on_time > 0:
-                    self._logger.debug('turning heater on for {0} seconds'.format(on_time))
+                    logging.debug('turning heater on for {0} seconds'.format(on_time))
                     await self.actor_on(self.heater)
                     await asyncio.sleep(on_time)
                 
                 if off_time > 0:
-                    self._logger.debug('turning heater off for {0} seconds'.format(off_time))
+                    logging.debug('turning heater off for {0} seconds'.format(off_time))
                     await self.actor_off(self.heater)
                     await asyncio.sleep(off_time)
                 
-                self._logger.debug('---exiting TimeProportionalControl run loop ---')
+                logging.debug('---exiting TimeProportionalControl run loop ---')
             
         except asyncio.CancelledError as e:
             pass
         except Exception as e:
-            self._logger.error("TimeProportionalControl Error {}".format(e))
+            logging.error("TimeProportionalControl Error {}".format(e))
         finally:
             self.running = False
             await self.actor_off(self.heater)
